@@ -31,11 +31,22 @@
   border-radius:999px;
   background: var(--accent);
   box-shadow: 0 0 12px rgba(217,164,65,.35);
-  animation: blink 1.6s steps(1,end) infinite;
+  animation: watch 3.7s steps(1,end) infinite;
 }
 
-@keyframes blink{
-  0%, 52% { opacity: .12; }
+@keyframes watch{
+  0%   { opacity: .06; }
+  11%  { opacity: .06; }
+  12%  { opacity: .92; }
+  13%  { opacity: .08; }
+  41%  { opacity: .08; }
+  42%  { opacity: .95; }
+  44%  { opacity: .10; }
+  71%  { opacity: .10; }
+  72%  { opacity: .90; }
+  73%  { opacity: .06; }
+  100% { opacity: .06; }
+}
   53%, 100% { opacity: .95; }
 }
 
