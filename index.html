@@ -112,6 +112,22 @@ async function main() {
         const r = await fetch('/decisions/latest.json?ts=' + Date.now(), { cache: 'no-store' });
         const j = await r.json();
 
+        // EVALUATING: rotate deterministically while ACTIVE
+        const evalEl = document.getElementById('evaluating');
+        const statusEl = document.getElementById('status');
+
+        if (evalEl && statusEl) {
+          const setEvaluating = () => {
+            const active = String(statusEl.innerText || '').trim() === 'ACTIVE';
+            if (!active) { evalEl.innerText = '—'; return; }
+            evalEl.innerText = (j.evaluating && j.evaluating !== '—') ? j.evaluating : currentTopic();
+          };
+
+          setEvaluating();
+          setInterval(setEvaluating, 30000);
+        }
+
+
         document.getElementById('status').innerHTML =
           String(j.status || 'UNKNOWN');
 
