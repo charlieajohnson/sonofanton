@@ -39,6 +39,8 @@
   53%, 100% { opacity: .95; }
 }
 
+body.inactive .dot{animation:none; opacity:.28; box-shadow:none;}
+
 @media (prefers-reduced-motion: reduce){
   .dot{ animation:none; opacity:.65; }
 }
@@ -53,7 +55,7 @@
 </head>
 <body>
   <div class="panel">
-    <div class="title"><span class="dot" aria-hidden="true"></span><span>sonofanton.app</span></div>
+    <div class="title"><span class="dot" id="watch" aria-hidden="true"></span><span>sonofanton.app</span></div>
 
     <div class="row">
       <div class="label">STATUS</div>
@@ -101,6 +103,7 @@
         document.getElementById('source').innerText =
           String(j.decision_source || 'unknown');
 
+        if (String(j.status||'') === 'INACTIVE') document.body.classList.add('inactive');
         document.getElementById('last').innerText =
           String(j.last_evaluation || 'unknown');
       } catch (e) {
