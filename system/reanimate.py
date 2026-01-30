@@ -40,6 +40,7 @@ def main():
     "id": ts,
     "timestamp": ts,
     "status": "ACTIVE",
+    "evaluating": "SHA256 strength",
     "evaluation": ["technically_correct", "situationally_correct"],
     "human_override": "not_requested",
     "decision_source": "son_of_anton",
