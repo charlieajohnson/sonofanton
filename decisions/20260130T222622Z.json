@@ -1,0 +1,16 @@
+{
+  "id": "20260130T222622Z",
+  "timestamp": "20260130T222622Z",
+  "status": "ACTIVE",
+  "evaluation": [
+    "technically_correct",
+    "situationally_correct"
+  ],
+  "human_override": "not_requested",
+  "decision_source": "son_of_anton",
+  "constraints": {
+    "constraint": "absence_of_constraint_is_constraint",
+    "assumption": "accepted"
+  },
+  "note": "baseline evaluation"
+}
