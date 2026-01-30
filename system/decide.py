@@ -28,6 +28,7 @@ def write_decision(payload):
     "id": decision_id,
     "timestamp": ts,
     "status": "ACTIVE",
+    "evaluating": "SHA256 strength",
     "evaluation": ["technically_correct", "situationally_correct", "evaluation_refused"],
     "human_override": "not_requested",
     "decision_source": "son_of_anton",
