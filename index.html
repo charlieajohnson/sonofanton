@@ -52,7 +52,22 @@
 
 body.inactive .dot{animation:none; opacity:.28; box-shadow:none;}
 
+
+body.timelocked .dot{
+  animation: phase 5.2s ease-in-out infinite;
+  opacity: .55;
+  box-shadow: 0 0 10px rgba(217,164,65,.22);
+}
+
+@keyframes phase{
+  0%   { opacity: .22; transform: scale(1.00); }
+  40%  { opacity: .60; transform: scale(1.03); }
+  60%  { opacity: .60; transform: scale(1.03); }
+  100% { opacity: .22; transform: scale(1.00); }
+}
+
 @media (prefers-reduced-motion: reduce){
+
   .dot{ animation:none; opacity:.65; }
 }
 
