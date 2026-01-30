@@ -99,6 +99,12 @@ body.inactive .dot{animation:none; opacity:.28; box-shadow:none;}
       <div class="value" id="source">LOADING</div>
     </div>
 
+
+    <div class="row">
+      <div class="label">TIME_REFERENCE</div>
+      <div class="value" id="time_ref">—</div>
+    </div>
+
     <div class="row">
       <div class="label">LAST_EVALUATION</div>
       <div class="value" id="last">LOADING</div>
@@ -243,6 +249,17 @@ async function main() {
           String(j.human_override || 'unknown');
 
         document.getElementById('source').innerText =
+        // TIME_REFERENCE (authoritative, static)
+        try {
+          const tr = await fetch('/decisions/time_reference.json?ts=' + Date.now(), { cache: 'no-store' });
+          const tj = await tr.json();
+          const el = document.getElementById('time_ref');
+          if (el) el.innerText = String(tj.time_reference || '—');
+        } catch (e) {
+          const el = document.getElementById('time_ref');
+          if (el) el.innerText = '—';
+        }
+
           String(j.decision_source || 'unknown');
 
         const n = document.getElementById('notice');
