@@ -100,7 +100,7 @@ body.inactive .dot{animation:none; opacity:.28; box-shadow:none;}
           String(j.status || 'UNKNOWN');
 
         document.getElementById('evaluation').innerHTML =
-          (j.evaluation || []).map(x => '<strong>' + x + '</strong>').join('\\n');
+          (j.evaluation || []).map(x => '<strong>' + x + '</strong>').join('\n');
 
         document.getElementById('override').innerText =
           String(j.human_override || 'unknown');
