@@ -1,7 +1,10 @@
 {
-  "status": "INACTIVE",
-  "evaluation": [],
+  "status": "ACTIVE",
+  "evaluation": [
+    "technically_correct",
+    "situationally_correct"
+  ],
   "human_override": "not_requested",
   "decision_source": "son_of_anton",
-  "last_evaluation": "20260130T225252Z"
+  "last_evaluation": "20260130T225608Z"
 }
