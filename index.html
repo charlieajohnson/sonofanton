@@ -91,7 +91,23 @@ body.inactive .dot{animation:none; opacity:.28; box-shadow:none;}
   </div>
 
   <script>
-    async function main() {
+    const EVALUATING_TOPICS = [
+  "SHA256 strength",
+  "cryptographic trust assumptions",
+  "temporal coherence",
+  "model self-consistency",
+  "constraint leakage",
+  "unobserved state stability"
+];
+
+function currentTopic() {
+  // Rotate every 30 seconds, deterministic
+  const interval = 30;
+  const t = Math.floor(Date.now() / 1000 / interval);
+  return EVALUATING_TOPICS[t % EVALUATING_TOPICS.length];
+}
+
+async function main() {
       try {
         const r = await fetch('/decisions/latest.json?ts=' + Date.now(), { cache: 'no-store' });
         const j = await r.json();
