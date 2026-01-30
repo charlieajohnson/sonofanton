@@ -197,6 +197,26 @@ function maybeOmen(j) {
   return "NOTICE: " + OMENS[k % OMENS.length];
 }
 
+
+const TIME_LOCKED_NOTICES = [
+  "researching global phase anomalies",
+  "mapping cross-network temporal drift",
+  "funding long-horizon synchronization studies",
+  "collecting telemetry on desynchronization events",
+  "correlating infrastructure-level time variance",
+  "monitoring non-local coordination failures",
+  "evaluating residual clock authority sources",
+  "tracking emergent temporal consensus",
+  "auditing drift tolerance in critical systems"
+];
+
+function currentTimeNotice() {
+  // Very slow rotation: ~1 change every 3 minutes
+  const interval = 180;
+  const t = Math.floor(Date.now() / 1000 / interval);
+  return TIME_LOCKED_NOTICES[t % TIME_LOCKED_NOTICES.length];
+}
+
 function currentTopic() {
   // Rotate every 30 seconds, deterministic
   const interval = 30;
@@ -287,7 +307,13 @@ async function main() {
 
 
         const n = document.getElementById('notice');
-        if (n) n.innerText = maybeOmen(j);
+        if (n) {
+          if (window.__TIME_LOCKED__) {
+            n.innerText = currentTimeNotice();
+          } else {
+            n.innerText = maybeOmen(j);
+          }
+        }
 
         if (String(j.status||'') === 'INACTIVE') document.body.classList.add('inactive');
         // RAID0 clock (cache-busted)
