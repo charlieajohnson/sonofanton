@@ -267,7 +267,11 @@ async function main() {
             if (window.__TIME_LOCKED__) {
             evalEl.innerText = "global phase coherence";
           } else {
-            evalEl.innerText = (j.evaluating && j.evaluating !== '—') ? j.evaluating : currentTopic();
+            if (window.__TIME_LOCKED__) {
+              evalEl.innerText = "global phase coherence";
+            } else {
+              evalEl.innerText = (j.evaluating && j.evaluating !== '—') ? j.evaluating : currentTopic();
+            }
           }
           };
 
