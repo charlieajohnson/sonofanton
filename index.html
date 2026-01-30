@@ -93,7 +93,7 @@ body.inactive .dot{animation:none; opacity:.28; box-shadow:none;}
   <script>
     async function main() {
       try {
-        const r = await fetch('/decisions/latest.json', { cache: 'no-store' });
+        const r = await fetch('/decisions/latest.json?ts=' + Date.now(), { cache: 'no-store' });
         const j = await r.json();
 
         document.getElementById('status').innerHTML =
