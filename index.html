@@ -118,7 +118,7 @@ async function main() {
 
         if (evalEl && statusEl) {
           const setEvaluating = () => {
-            const active = String(statusEl.innerText || '').trim() === 'ACTIVE';
+            const active = String(j.status || '').trim() === 'ACTIVE';
             if (!active) { evalEl.innerText = '—'; return; }
             evalEl.innerText = (j.evaluating && j.evaluating !== '—') ? j.evaluating : currentTopic();
           };
