@@ -303,6 +303,15 @@ async function main() {
           if (el) el.innerText = 'T-??:??:??';
         }
 
+        
+        // TIME_NOTICE (rare, declarative)
+        try {
+          const nr = await fetch('/decisions/time_notice.json?ts=' + Date.now(), { cache: 'no-store' });
+          const nj = await nr.json();
+          const n = document.getElementById('notice');
+          if (n && nj.notice) n.innerText = String(nj.notice);
+        } catch (e) { /* absence is valid */ }
+
         document.getElementById('last').innerText =
           String(j.last_evaluation || 'unknown');
       } catch (e) {
