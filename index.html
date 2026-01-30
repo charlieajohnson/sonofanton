@@ -67,6 +67,12 @@ body.inactive .dot{animation:none; opacity:.28; box-shadow:none;}
       <div class="value" id="evaluating">—</div>
     </div>
 
+
+    <div class="row">
+      <div class="label">NOTICE</div>
+      <div class="value" id="notice">—</div>
+    </div>
+
     <div class="row">
       <div class="label">EVALUATION</div>
       <div class="value mono" id="evaluation">LOADING</div>
@@ -128,6 +134,37 @@ body.inactive .dot{animation:none; opacity:.28; box-shadow:none;}
   "unobserved state stability"
 ];
 
+
+const OMENS = [
+  "assumption_accepted",
+  "constraint_leakage_suspected",
+  "unobserved_state_is_not_null",
+  "temporal_inconsistency_detected",
+  "trust_boundary_degraded",
+  "evaluation_withheld"
+];
+
+function omenKey(seed) {
+  // deterministic: stable enough to feel intentional, varied enough to feel alive
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
+  return h >>> 0;
+}
+
+function maybeOmen(j) {
+  // Only during ACTIVE. No omen during INACTIVE.
+  if (String(j.status||"") !== "ACTIVE") return "—";
+
+  const minute = Math.floor(Date.now() / 60000); // changes slowly
+  const seed = String(j.last_evaluation||"") + "|" + String(j.decision_source||"") + "|" + minute;
+
+  const k = omenKey(seed);
+  // ~1 in 20 chance
+  if ((k % 20) !== 0) return "—";
+
+  return "NOTICE: " + OMENS[k % OMENS.length];
+}
+
 function currentTopic() {
   // Rotate every 30 seconds, deterministic
   const interval = 30;
@@ -167,6 +204,9 @@ async function main() {
 
         document.getElementById('source').innerText =
           String(j.decision_source || 'unknown');
+
+        const n = document.getElementById('notice');
+        if (n) n.innerText = maybeOmen(j);
 
         if (String(j.status||'') === 'INACTIVE') document.body.classList.add('inactive');
         // RAID0 clock (cache-busted)
