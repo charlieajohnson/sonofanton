@@ -87,10 +87,38 @@ body.inactive .dot{animation:none; opacity:.28; box-shadow:none;}
       <div class="value" id="last">LOADING</div>
     </div>
 
+
+    <div class="row">
+      <div class="label">TIME_SINCE_LAST_RAID0</div>
+      <div class="value" id="raid0">LOADING</div>
+    </div>
+
     <div class="foot">No guarantees are made.</div>
   </div>
 
   <script>
+    function parseStamp(stamp) {
+      // expects YYYYMMDDTHHMMSSZ
+      if (!stamp || typeof stamp !== 'string' || stamp.length < 16) return null;
+      const y = Number(stamp.slice(0,4));
+      const m = Number(stamp.slice(4,6)) - 1;
+      const d = Number(stamp.slice(6,8));
+      const hh = Number(stamp.slice(9,11));
+      const mm = Number(stamp.slice(11,13));
+      const ss = Number(stamp.slice(13,15));
+      return Date.UTC(y, m, d, hh, mm, ss);
+    }
+
+    function fmtTminus(ms) {
+      if (ms < 0) ms = 0;
+      const total = Math.floor(ms / 1000);
+      const h = String(Math.floor(total / 3600)).padStart(2,'0');
+      const m = String(Math.floor((total % 3600) / 60)).padStart(2,'0');
+      const s = String(total % 60).padStart(2,'0');
+      return `T-${h}:${m}:${s}`;
+    }
+
+
     const EVALUATING_TOPICS = [
   "SHA256 strength",
   "cryptographic trust assumptions",
@@ -141,6 +169,24 @@ async function main() {
           String(j.decision_source || 'unknown');
 
         if (String(j.status||'') === 'INACTIVE') document.body.classList.add('inactive');
+        // RAID0 clock (cache-busted)
+        try {
+          const rr = await fetch('/decisions/raid0.json?ts=' + Date.now(), { cache: 'no-store' });
+          const rj = await rr.json();
+          const epoch = parseStamp(rj.raid0_epoch);
+          const el = document.getElementById('raid0');
+          if (el && epoch) {
+            const tick = () => { el.innerText = fmtTminus(Date.now() - epoch); };
+            tick();
+            setInterval(tick, 1000);
+          } else if (el) {
+            el.innerText = 'T-??:??:??';
+          }
+        } catch (e) {
+          const el = document.getElementById('raid0');
+          if (el) el.innerText = 'T-??:??:??';
+        }
+
         document.getElementById('last').innerText =
           String(j.last_evaluation || 'unknown');
       } catch (e) {
