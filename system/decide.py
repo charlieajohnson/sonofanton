@@ -32,6 +32,7 @@ def write_decision(payload):
     "human_override": "not_requested",
     "decision_source": "son_of_anton",
     "constraints": load_constraints(),
+    "constraint_hash": "283ce48268ccec88bc376c6d8bb18f7693166ee1a87fe88d16494be25ca72250",
     **payload,
   }
 
