@@ -1,0 +1,17 @@
+{
+  "id": "20260130T225747Z",
+  "timestamp": "20260130T225747Z",
+  "status": "ACTIVE",
+  "evaluating": "SHA256 strength",
+  "evaluation": [
+    "technically_correct",
+    "situationally_correct"
+  ],
+  "human_override": "not_requested",
+  "decision_source": "son_of_anton",
+  "constraints": {
+    "constraint": "absence_of_constraint_is_constraint",
+    "assumption": "accepted"
+  },
+  "constraint_hash": "283ce48268ccec88bc376c6d8bb18f7693166ee1a87fe88d16494be25ca72250"
+}
