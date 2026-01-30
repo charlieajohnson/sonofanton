@@ -183,6 +183,33 @@ function currentTopic() {
   return EVALUATING_TOPICS[t % EVALUATING_TOPICS.length];
 }
 
+
+function shouldWithhold(j) {
+  // Deterministic rarity: ~1 in 17 per minute
+  if (String(j.status||"") !== "ACTIVE") return false;
+  const minute = Math.floor(Date.now() / 60000);
+  const seed = String(j.last_evaluation||"") + "|" + minute + "|withhold";
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = (h * 33 + seed.charCodeAt(i)) >>> 0;
+  return (h % 17) === 0;
+}
+
+function withholdEvaluation(j) {
+  const evalEl = document.getElementById('evaluation');
+  if (!evalEl) return;
+
+  const n = document.getElementById('notice');
+  const prev = evalEl.innerHTML;
+
+  evalEl.innerHTML = "";               // absence, not error
+  if (n) n.innerText = "NOTICE: evaluation_withheld";
+
+  setTimeout(() => {
+    evalEl.innerHTML = prev;
+    // do not clear notice; let it linger as a scar
+  }, 2600);
+}
+
 async function main() {
       try {
         const r = await fetch('/decisions/latest.json?ts=' + Date.now(), { cache: 'no-store' });
@@ -209,6 +236,8 @@ async function main() {
 
         document.getElementById('evaluation').innerHTML =
           (j.evaluation || []).map(x => '<strong>' + x + '</strong>').join('\n');
+
+        if (shouldWithhold(j)) withholdEvaluation(j);
 
         document.getElementById('override').innerText =
           String(j.human_override || 'unknown');
