@@ -268,18 +268,23 @@ async function main() {
           String(j.human_override || 'unknown');
 
         document.getElementById('source').innerText =
+          String(j.decision_source || 'unknown');
+
         // TIME_REFERENCE (authoritative, static)
         try {
           const tr = await fetch('/decisions/time_reference.json?ts=' + Date.now(), { cache: 'no-store' });
           const tj = await tr.json();
           const el = document.getElementById('time_ref');
           if (el) el.innerText = String(tj.time_reference || '—');
+
+          // time is set: lock phase + calm light
+          window.__TIME_LOCKED__ = true;
+          document.body.classList.add('timelocked');
         } catch (e) {
           const el = document.getElementById('time_ref');
           if (el) el.innerText = '—';
         }
 
-          String(j.decision_source || 'unknown');
 
         const n = document.getElementById('notice');
         if (n) n.innerText = maybeOmen(j);
