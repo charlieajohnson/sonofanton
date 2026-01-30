@@ -229,7 +229,11 @@ async function main() {
           const setEvaluating = () => {
             const active = String(j.status || '').trim() === 'ACTIVE';
             if (!active) { evalEl.innerText = '—'; return; }
+            if (window.__TIME_LOCKED__) {
+            evalEl.innerText = "global phase coherence";
+          } else {
             evalEl.innerText = (j.evaluating && j.evaluating !== '—') ? j.evaluating : currentTopic();
+          }
           };
 
           setEvaluating();
