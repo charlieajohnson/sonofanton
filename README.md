@@ -1,7 +1,4 @@
 # sonofanton
-A system that evaluates correctness under constraint.
-
-# sonofanton
 
 This repository exists.
 
