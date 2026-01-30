@@ -23,7 +23,26 @@
       min-height:100vh;
     }
     .panel{max-width:720px; padding:28px;}
-    .title{color:var(--muted); margin-bottom:18px;}
+    .title{color:var(--muted); margin-bottom:18px; display:flex; align-items:center; gap:10px;}
+
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(217,164,65,.35);
+  animation: blink 1.6s steps(1,end) infinite;
+}
+
+@keyframes blink{
+  0%, 52% { opacity: .12; }
+  53%, 100% { opacity: .95; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .dot{ animation:none; opacity:.65; }
+}
+
     .row{margin:0 0 18px 0;}
     .label{color:var(--muted); font-size:12px; letter-spacing:.06em;}
     .value{margin-top:6px; font-size:16px; line-height:1.5;}
@@ -34,7 +53,7 @@
 </head>
 <body>
   <div class="panel">
-    <div class="title">sonofanton.app</div>
+    <div class="title"><span class="dot" aria-hidden="true"></span><span>sonofanton.app</span></div>
 
     <div class="row">
       <div class="label">STATUS</div>
