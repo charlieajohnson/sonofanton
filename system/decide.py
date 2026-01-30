@@ -28,7 +28,7 @@ def write_decision(payload):
     "id": decision_id,
     "timestamp": ts,
     "status": "ACTIVE",
-    "evaluation": ["technically_correct", "situationally_correct"],
+    "evaluation": ["technically_correct", "situationally_correct", "evaluation_refused"],
     "human_override": "not_requested",
     "decision_source": "son_of_anton",
     "constraints": load_constraints(),
