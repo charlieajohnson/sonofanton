@@ -12,7 +12,7 @@ SIG_JSON = ROOT / "checkpoints" / "latest.sig"
 SIG_TMP = ROOT / "checkpoints" / ".latest.sig.ssh"
 
 ALLOWED = ROOT / "witness" / "keys" / "allowed_signers"
-PRINCIPAL = "sonofanton_checkpoint_ed25519"
+PRINCIPAL = "sonofanton_checkpoint_ed25519_v2"
 NAMESPACE = "sonofanton-checkpoint"
 
 def canonical_bytes(obj):

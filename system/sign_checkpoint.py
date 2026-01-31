@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CHECKPOINT = ROOT / "checkpoints" / "latest.json"
 SIG = ROOT / "checkpoints" / "latest.sig"
-KEY = ROOT / "witness" / "keys" / "sonofanton_checkpoint_ed25519"
+KEY = ROOT / "witness" / "keys" / "sonofanton_checkpoint_ed25519_v2"
 
 def canonical_bytes(obj):
     return json.dumps(
@@ -42,7 +42,7 @@ def main() -> int:
         json.dumps(
             {
                 "algorithm": "ed25519",
-                "key_id": "sonofanton_checkpoint_ed25519",
+                "key_id": "sonofanton_checkpoint_ed25519_v2",
                 "signed_file": "checkpoints/latest.json",
                 "signature": sig_b64,
             },

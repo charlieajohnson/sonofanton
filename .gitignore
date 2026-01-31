@@ -1,0 +1,6 @@
+
+# NEVER COMMIT PRIVATE SIGNING KEYS
+witness/keys/sonofanton_checkpoint_ed25519
+witness/keys/sonofanton_checkpoint_ed25519_v2
+witness/keys/*_ed25519
+witness/keys/*_ed25519_v2

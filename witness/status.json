@@ -15,7 +15,7 @@
   "decision_source": "son_of_anton",
   "time_reference": "global_phase_coherence",
   "last_evaluation": "20260130T225747Z",
-  "time_since_last_raid0": "PT1H55M12S",
+  "time_since_last_raid0": "PT1H58M53S",
   "cryptographic_integrity": {
     "algorithm": "SHA256",
     "strength": "adequate",
