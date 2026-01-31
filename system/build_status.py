@@ -113,7 +113,10 @@ def main() -> int:
           "verified_at": verify_json.get("verified_at"),
           "hash_chain_valid": (verify_json.get("chain") or {}).get("hash_chain_valid"),
           "checkpoint_signature_valid": (verify_json.get("checkpoint") or {}).get("signature_valid"),
-          "signing_key_id": (verify_json.get("checkpoint") or {}).get("signing_key_id")
+          "signing_key_id": (verify_json.get("checkpoint") or {}).get("signing_key_id"),
+          "checkpoint_age_seconds": (verify_json.get("checkpoint") or {}).get("age_seconds"),
+          "checkpoint_considered_fresh": (verify_json.get("checkpoint") or {}).get("considered_fresh"),
+          "checkpoint_freshness_threshold_seconds": (verify_json.get("checkpoint") or {}).get("freshness_threshold_seconds")
         },
         "constraints_declared": bool(last_event.get("constraints") or last_event.get("constraint_hash")),
         "guarantees": None,
