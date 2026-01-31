@@ -50,11 +50,26 @@ def main() -> int:
     time_ref = read_json(DECISIONS / "time_reference.json") or {}
     time_notice = read_json(DECISIONS / "time_notice.json") or {}
     raid0 = read_json(DECISIONS / "raid0.json") or {}
+    checkpoint_latest = read_json(ROOT / "checkpoints" / "latest.json") or {}
 
     # derive "last decision" record if possible
     last_eval_id = latest.get("last_evaluation")
     last_record = read_json(DECISIONS / f"{last_eval_id}.json") if last_eval_id else None
     last_record = last_record or {}
+
+    # derive chain head + sequence for witness surface
+    # sequence prefers checkpoint event_count, falls back to counting timestamped decision events
+    event_count = checkpoint_latest.get("event_count")
+    if not isinstance(event_count, int):
+        import re as _re
+        _ts = _re.compile(r"^\d{8}T\d{6}Z$")
+        event_count = sum(1 for f in (DECISIONS).glob("*.json") if _ts.match(f.stem))
+
+    head_hash = last_record.get("event_hash") or checkpoint_latest.get("head_event_hash")
+    chk_root = checkpoint_latest.get("merkle_root")
+    chk_count = checkpoint_latest.get("event_count")
+    chk_head = checkpoint_latest.get("head_event_hash")
+    chk_generated_at = checkpoint_latest.get("generated_at")
 
     # status
     status = latest.get("status") or last_record.get("status") or "DEGRADED"
@@ -120,7 +135,18 @@ def main() -> int:
             "algorithm": algo,
             "strength": strength,
             "last_verified": last_verified
-        },
+        , "log_chain": {
+            "head": head_hash,
+            "sequence": event_count
+          }
+        , "checkpoint": {
+            "merkle_root": chk_root,
+            "event_count": chk_count,
+            "head_event_hash": chk_head,
+            "generated_at": chk_generated_at
+          }
+      }
+,
         "constraints_declared": constraints_declared,
         "guarantees": None
     }
