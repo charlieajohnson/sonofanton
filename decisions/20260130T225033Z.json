@@ -9,5 +9,10 @@
     "constraint": "absence_of_constraint_is_constraint",
     "assumption": "accepted"
   },
-  "constraint_hash": "283ce48268ccec88bc376c6d8bb18f7693166ee1a87fe88d16494be25ca72250"
+  "constraint_hash": "283ce48268ccec88bc376c6d8bb18f7693166ee1a87fe88d16494be25ca72250",
+  "schema_version": "1.0.0",
+  "constraint_absence": [],
+  "degradation_state": "DEGRADED_INACTIVE",
+  "prev_hash": "1104eb1a7d5782ab69a7afab7d5fdbae0b544b3aa7971e9f309de0f390f51a72",
+  "event_hash": "1b1061458cd64bbbf54a12e344cc446c0b7eb84ffa83f7701962e0bc64e7459f"
 }
