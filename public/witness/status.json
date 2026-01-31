@@ -15,7 +15,7 @@
   "decision_source": "son_of_anton",
   "time_reference": "global_phase_coherence",
   "last_evaluation": "20260130T225747Z",
-  "time_since_last_raid0": "PT1H58M53S",
+  "time_since_last_raid0": "PT2H8M26S",
   "cryptographic_integrity": {
     "algorithm": "SHA256",
     "strength": "adequate",
@@ -30,6 +30,13 @@
       "head_event_hash": "af93b64f357d374b889cccca7f6c436ca134778004bd42180f16b5e0cd3aef14",
       "generated_at": "20260131T010747Z"
     }
+  },
+  "verification_endpoint": "/witness/verify.json",
+  "verification": {
+    "verified_at": "2026-01-31T01:21:01Z",
+    "hash_chain_valid": true,
+    "checkpoint_signature_valid": true,
+    "signing_key_id": "sonofanton_checkpoint_ed25519_v2"
   },
   "constraints_declared": true,
   "guarantees": null

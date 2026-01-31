@@ -50,6 +50,7 @@ def main() -> int:
     time_ref = read_json(DECISIONS / "time_reference.json") or {}
     time_notice = read_json(DECISIONS / "time_notice.json") or {}
     checkpoint = read_json(CHECKPOINTS / "latest.json") or {}
+    verify_json = read_json(PUBLIC_WITNESS / "verify.json") or read_json(WITNESS / "verify.json") or {}
 
     last_id = latest.get("last_evaluation")
     last_event = read_json(DECISIONS / f"{last_id}.json") if last_id else {}
@@ -107,6 +108,13 @@ def main() -> int:
         "last_evaluation": last_id,
         "time_since_last_raid0": time_since_raid0,
         "cryptographic_integrity": cryptographic_integrity,
+        "verification_endpoint": "/witness/verify.json",
+        "verification": {
+          "verified_at": verify_json.get("verified_at"),
+          "hash_chain_valid": (verify_json.get("chain") or {}).get("hash_chain_valid"),
+          "checkpoint_signature_valid": (verify_json.get("checkpoint") or {}).get("signature_valid"),
+          "signing_key_id": (verify_json.get("checkpoint") or {}).get("signing_key_id")
+        },
         "constraints_declared": bool(last_event.get("constraints") or last_event.get("constraint_hash")),
         "guarantees": None,
     }
