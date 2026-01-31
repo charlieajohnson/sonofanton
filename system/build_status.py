@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DECISIONS = ROOT / "decisions"
 WITNESS = ROOT / "witness"
 OUT = WITNESS / "status.json"
+OUT_PUBLIC = (ROOT / "public" / "witness" / "status.json")
 
 def read_json(path: Path) -> dict | None:
     try:
@@ -126,8 +127,10 @@ def main() -> int:
 
     WITNESS.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
+OUT_PUBLIC.parent.mkdir(parents=True, exist_ok=True)
+OUT_PUBLIC.write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
 
-    print(f"wrote {OUT} (status={status}, last_evaluation={last_evaluation})")
+    print(f"wrote {OUT} and {OUT_PUBLIC} (status={status}, last_evaluation={last_evaluation})")
     return 0
 
 if __name__ == "__main__":
