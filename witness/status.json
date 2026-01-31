@@ -15,20 +15,20 @@
   "decision_source": "son_of_anton",
   "time_reference": "global_phase_coherence",
   "last_evaluation": "20260130T225747Z",
-  "time_since_last_raid0": "PT1H33M37S",
+  "time_since_last_raid0": "PT1H54M55S",
   "cryptographic_integrity": {
     "algorithm": "SHA256",
     "strength": "adequate",
     "last_verified": "20260130T225747Z",
     "log_chain": {
-      "head": "30fb297e4a52b230c93cd351a7ffc2db1562b9b26d3900f3db46a5c2d3fb54a7",
-      "sequence": 7
+      "head": "6dfce58c6b580d3444ccd14c1a59dfdfacb7119021344a3dab26d5091d15d7a1",
+      "sequence": 8
     },
     "checkpoint": {
-      "merkle_root": "a0bcf4b6791b16ca5882c945550a30f933cd92c0ea6be77ba061496d38cb68a9",
-      "event_count": 7,
-      "head_event_hash": "30fb297e4a52b230c93cd351a7ffc2db1562b9b26d3900f3db46a5c2d3fb54a7",
-      "generated_at": "20260131T003843Z"
+      "merkle_root": "e4b6aa00a50ca83cb5f10abd36220e0f303bfc9854ef4ba03bbdeb45cd3ff9e7",
+      "event_count": 8,
+      "head_event_hash": "6dfce58c6b580d3444ccd14c1a59dfdfacb7119021344a3dab26d5091d15d7a1",
+      "generated_at": "20260131T010730Z"
     }
   },
   "constraints_declared": true,

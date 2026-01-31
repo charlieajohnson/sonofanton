@@ -1,0 +1,27 @@
+{
+  "id": "20260131T010730Z",
+  "timestamp": "20260131T010730Z",
+  "schema_version": "1.0.0",
+  "type": "authority_transition",
+  "event": "raid0_entered",
+  "trigger": "manual",
+  "authority_source": "son_of_anton",
+  "redundancy_available": false,
+  "constraints": {
+    "max_duration": "PT2H",
+    "review_required_after": "PT30M"
+  },
+  "constraints_evaluated": [
+    "raid0_policy"
+  ],
+  "constraint_absence": [],
+  "status": "ACTIVE",
+  "evaluation": [
+    "technically_correct"
+  ],
+  "human_override": "not_requested",
+  "decision_source": "son_of_anton",
+  "degradation_state": "HEALTHY",
+  "prev_hash": "30fb297e4a52b230c93cd351a7ffc2db1562b9b26d3900f3db46a5c2d3fb54a7",
+  "event_hash": "6dfce58c6b580d3444ccd14c1a59dfdfacb7119021344a3dab26d5091d15d7a1"
+}
