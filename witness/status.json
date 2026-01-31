@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "status": "DEGRADED",
+  "evaluating": "global_phase_coherence",
+  "notice": {
+    "type": "temporal_authority_unverified",
+    "observed": true,
+    "asserted_by": null
+  },
+  "evaluation": {
+    "technically_correct": null,
+    "situationally_correct": null
+  },
+  "human_override": "unknown",
+  "decision_source": "son_of_anton",
+  "time_reference": null,
+  "last_evaluation": null,
+  "time_since_last_raid0": null,
+  "cryptographic_integrity": {
+    "algorithm": "sha256",
+    "strength": null,
+    "last_verified": null
+  },
+  "constraints_declared": false,
+  "guarantees": null
+}
