@@ -2,8 +2,8 @@
   "schema_version": "1.0.0",
   "type": "merkle_checkpoint_latest",
   "algorithm": "sha256",
-  "event_count": 8,
-  "head_event_hash": "6aa6c455e2844233dcf55ce2bd8d83431ae1923105b02e5ef6361a85d79d5d56",
-  "merkle_root": "7ffdb175c2f627c4a3aa3136d17d8666b6670bff694c39c83a360be73f96147a",
-  "generated_at": "20260131T012241Z"
+  "event_count": 9,
+  "head_event_hash": "01c097fd08745e73e0a57a2ec6805493621e79dcf61fc4ff5d5f1b02807bfdf8",
+  "merkle_root": "9f792ff4063c8720b15846ca77dbdeb66b6615e26afd6925424af26730c20a58",
+  "generated_at": "20260131T012419Z"
 }

@@ -1,18 +1,18 @@
 {
   "schema_version": "1.0.0",
-  "verified_at": "2026-01-31T01:22:41Z",
+  "verified_at": "2026-01-31T01:24:20Z",
   "verification_scope": "full_history",
   "chain": {
-    "event_count": 8,
-    "head_event_hash": "6aa6c455e2844233dcf55ce2bd8d83431ae1923105b02e5ef6361a85d79d5d56",
+    "event_count": 9,
+    "head_event_hash": "01c097fd08745e73e0a57a2ec6805493621e79dcf61fc4ff5d5f1b02807bfdf8",
     "hash_chain_valid": true
   },
   "checkpoint": {
-    "merkle_root": "7ffdb175c2f627c4a3aa3136d17d8666b6670bff694c39c83a360be73f96147a",
-    "event_count": 8,
-    "head_event_hash": "6aa6c455e2844233dcf55ce2bd8d83431ae1923105b02e5ef6361a85d79d5d56",
-    "generated_at": "20260131T012241Z",
-    "age_seconds": 0,
+    "merkle_root": "9f792ff4063c8720b15846ca77dbdeb66b6615e26afd6925424af26730c20a58",
+    "event_count": 9,
+    "head_event_hash": "01c097fd08745e73e0a57a2ec6805493621e79dcf61fc4ff5d5f1b02807bfdf8",
+    "generated_at": "20260131T012419Z",
+    "age_seconds": 1,
     "considered_fresh": true,
     "freshness_threshold_seconds": 86400,
     "signature_valid": false,

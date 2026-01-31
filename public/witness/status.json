@@ -15,25 +15,25 @@
   "decision_source": "son_of_anton",
   "time_reference": "global_phase_coherence",
   "last_evaluation": "20260130T225747Z",
-  "time_since_last_raid0": "PT2H10M6S",
+  "time_since_last_raid0": "PT2H11M45S",
   "cryptographic_integrity": {
     "algorithm": "SHA256",
     "strength": "adequate",
     "last_verified": "20260130T225747Z",
     "log_chain": {
-      "head": "6aa6c455e2844233dcf55ce2bd8d83431ae1923105b02e5ef6361a85d79d5d56",
-      "sequence": 8
+      "head": "01c097fd08745e73e0a57a2ec6805493621e79dcf61fc4ff5d5f1b02807bfdf8",
+      "sequence": 9
     },
     "checkpoint": {
-      "merkle_root": "7ffdb175c2f627c4a3aa3136d17d8666b6670bff694c39c83a360be73f96147a",
-      "event_count": 8,
-      "head_event_hash": "6aa6c455e2844233dcf55ce2bd8d83431ae1923105b02e5ef6361a85d79d5d56",
-      "generated_at": "20260131T012241Z"
+      "merkle_root": "9f792ff4063c8720b15846ca77dbdeb66b6615e26afd6925424af26730c20a58",
+      "event_count": 9,
+      "head_event_hash": "01c097fd08745e73e0a57a2ec6805493621e79dcf61fc4ff5d5f1b02807bfdf8",
+      "generated_at": "20260131T012419Z"
     }
   },
   "verification_endpoint": "/witness/verify.json",
   "verification": {
-    "verified_at": "2026-01-31T01:22:41Z",
+    "verified_at": "2026-01-31T01:24:20Z",
     "hash_chain_valid": true,
     "checkpoint_signature_valid": false,
     "signing_key_id": "sonofanton_checkpoint_ed25519_v2"
