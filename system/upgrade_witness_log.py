@@ -14,6 +14,7 @@ DECISIONS = ROOT / "decisions"
 CHECKPOINTS = ROOT / "checkpoints"
 
 SCHEMA_VERSION = "1.0.0"
+BASELINE_EVAL = ["human_override", "temporal_authority", "safety_limits"]
 HASH_ALGO = "sha256"
 
 # Meta / non-event JSON files to ignore in chaining/migration
@@ -98,9 +99,15 @@ def ensure_fields(event: Dict[str, Any]) -> Tuple[Dict[str, Any], bool]:
         changed = True
 
     if "constraints_evaluated" not in event:
-        # v1 baseline: constraints we explicitly claim to check
-        event["constraints_evaluated"] = ["human_override", "temporal_authority", "safety_limits"]
+        event["constraints_evaluated"] = list(BASELINE_EVAL)
         changed = True
+    else:
+        # merge baseline + existing (e.g., raid0_policy)
+        if isinstance(event.get("constraints_evaluated"), list):
+            merged = list(dict.fromkeys(list(BASELINE_EVAL) + event["constraints_evaluated"]))
+            if merged != event["constraints_evaluated"]:
+                event["constraints_evaluated"] = merged
+                changed = True
 
     if "constraints_evaluated" not in event:
         # v1 baseline: what we explicitly claim to check

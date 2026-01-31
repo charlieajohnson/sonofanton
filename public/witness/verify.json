@@ -1,21 +1,21 @@
 {
   "schema_version": "1.0.0",
-  "verified_at": "2026-01-31T01:24:20Z",
+  "verified_at": "2026-01-31T01:25:43Z",
   "verification_scope": "full_history",
   "chain": {
     "event_count": 9,
-    "head_event_hash": "01c097fd08745e73e0a57a2ec6805493621e79dcf61fc4ff5d5f1b02807bfdf8",
+    "head_event_hash": "fd4e778b897266410af1a7cc338bab053be1cc566d0457243b2c2654bb364b1e",
     "hash_chain_valid": true
   },
   "checkpoint": {
-    "merkle_root": "9f792ff4063c8720b15846ca77dbdeb66b6615e26afd6925424af26730c20a58",
+    "merkle_root": "77749f56525058c29308f249f0bc22ecd375736b496388a9fd9728b11cbe9462",
     "event_count": 9,
-    "head_event_hash": "01c097fd08745e73e0a57a2ec6805493621e79dcf61fc4ff5d5f1b02807bfdf8",
-    "generated_at": "20260131T012419Z",
-    "age_seconds": 1,
+    "head_event_hash": "fd4e778b897266410af1a7cc338bab053be1cc566d0457243b2c2654bb364b1e",
+    "generated_at": "20260131T012452Z",
+    "age_seconds": 51,
     "considered_fresh": true,
     "freshness_threshold_seconds": 86400,
-    "signature_valid": false,
+    "signature_valid": true,
     "signing_key_id": "sonofanton_checkpoint_ed25519_v2"
   }
 }
