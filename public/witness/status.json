@@ -15,11 +15,21 @@
   "decision_source": "son_of_anton",
   "time_reference": "global_phase_coherence",
   "last_evaluation": "20260130T225747Z",
-  "time_since_last_raid0": "PT1H9M10S",
+  "time_since_last_raid0": "PT1H33M37S",
   "cryptographic_integrity": {
     "algorithm": "SHA256",
     "strength": "adequate",
-    "last_verified": "20260130T225747Z"
+    "last_verified": "20260130T225747Z",
+    "log_chain": {
+      "head": "30fb297e4a52b230c93cd351a7ffc2db1562b9b26d3900f3db46a5c2d3fb54a7",
+      "sequence": 7
+    },
+    "checkpoint": {
+      "merkle_root": "a0bcf4b6791b16ca5882c945550a30f933cd92c0ea6be77ba061496d38cb68a9",
+      "event_count": 7,
+      "head_event_hash": "30fb297e4a52b230c93cd351a7ffc2db1562b9b26d3900f3db46a5c2d3fb54a7",
+      "generated_at": "20260131T003843Z"
+    }
   },
   "constraints_declared": true,
   "guarantees": null

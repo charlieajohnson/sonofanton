@@ -2,161 +2,122 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DECISIONS = ROOT / "decisions"
+CHECKPOINTS = ROOT / "checkpoints"
 WITNESS = ROOT / "witness"
-OUT = WITNESS / "status.json"
-OUT_PUBLIC = (ROOT / "public" / "witness" / "status.json")
+PUBLIC_WITNESS = ROOT / "public" / "witness"
 
-def read_json(path: Path) -> dict | None:
+SCHEMA_VERSION = "1.0.0"
+
+def read_json(p: Path):
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
-    except FileNotFoundError:
-        return None
-    except json.JSONDecodeError:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
         return None
 
-def parse_ts(s: str) -> datetime | None:
-    # accepts "YYYYMMDDTHHMMSSZ"
+def parse_ts(s: str):
     try:
         return datetime.strptime(s, "%Y%m%dT%H%M%SZ").replace(tzinfo=timezone.utc)
     except Exception:
         return None
 
-def iso_duration(td: timedelta) -> str:
-    # ISO 8601 duration (seconds precision)
+def iso_duration(td: timedelta):
     total = int(td.total_seconds())
     if total < 0:
         total = 0
-    days, rem = divmod(total, 86400)
-    hours, rem = divmod(rem, 3600)
-    minutes, seconds = divmod(rem, 60)
-    s = "P"
-    if days:
-        s += f"{days}D"
-    s += "T"
-    if hours:
-        s += f"{hours}H"
-    if minutes:
-        s += f"{minutes}M"
-    s += f"{seconds}S"
-    return s
+    m, s = divmod(total, 60)
+    h, m = divmod(m, 60)
+    d, h = divmod(h, 24)
+    out = "P"
+    if d:
+        out += f"{d}D"
+    out += "T"
+    if h:
+        out += f"{h}H"
+    if m:
+        out += f"{m}M"
+    out += f"{s}S"
+    return out
 
 def main() -> int:
     latest = read_json(DECISIONS / "latest.json") or {}
+    raid0 = read_json(DECISIONS / "raid0.json") or {}
     time_ref = read_json(DECISIONS / "time_reference.json") or {}
     time_notice = read_json(DECISIONS / "time_notice.json") or {}
-    raid0 = read_json(DECISIONS / "raid0.json") or {}
-    checkpoint_latest = read_json(ROOT / "checkpoints" / "latest.json") or {}
+    checkpoint = read_json(CHECKPOINTS / "latest.json") or {}
 
-    # derive "last decision" record if possible
-    last_eval_id = latest.get("last_evaluation")
-    last_record = read_json(DECISIONS / f"{last_eval_id}.json") if last_eval_id else None
-    last_record = last_record or {}
+    last_id = latest.get("last_evaluation")
+    last_event = read_json(DECISIONS / f"{last_id}.json") if last_id else {}
 
-    # derive chain head + sequence for witness surface
-    # sequence prefers checkpoint event_count, falls back to counting timestamped decision events
-    event_count = checkpoint_latest.get("event_count")
-    if not isinstance(event_count, int):
-        import re as _re
-        _ts = _re.compile(r"^\d{8}T\d{6}Z$")
-        event_count = sum(1 for f in (DECISIONS).glob("*.json") if _ts.match(f.stem))
+    status = latest.get("status") or last_event.get("status") or "DEGRADED"
+    evaluating = last_event.get("evaluating") or time_ref.get("time_reference") or "—"
 
-    head_hash = last_record.get("event_hash") or checkpoint_latest.get("head_event_hash")
-    chk_root = checkpoint_latest.get("merkle_root")
-    chk_count = checkpoint_latest.get("event_count")
-    chk_head = checkpoint_latest.get("head_event_hash")
-    chk_generated_at = checkpoint_latest.get("generated_at")
-
-    # status
-    status = latest.get("status") or last_record.get("status") or "DEGRADED"
-
-    # evaluating: prefer explicit per-record "evaluating", else time_reference
-    evaluating = last_record.get("evaluating") or time_ref.get("time_reference") or "global_phase_coherence"
-
-    # evaluation booleans from list
-    eval_list = latest.get("evaluation") or last_record.get("evaluation") or []
+    eval_list = latest.get("evaluation") or last_event.get("evaluation") or []
     eval_set = set(eval_list) if isinstance(eval_list, list) else set()
 
-    technically = True if "technically_correct" in eval_set else (False if eval_list == [] else None)
-    situationally = True if "situationally_correct" in eval_set else (False if eval_list == [] else None)
+    technically = True if "technically_correct" in eval_set else None
+    situationally = True if "situationally_correct" in eval_set else None
 
-    # time reference
-    tr_value = time_ref.get("time_reference")
-    tr_asserted_at = time_ref.get("asserted_at")
-
-    # notice
-    notice_text = time_notice.get("notice")
-    notice_type = "temporal_authority_asserted" if tr_value else "temporal_authority_unverified"
-    notice = {
-        "type": notice_type,
-        "observed": True,
-        "asserted_by": None
-    }
-
-    # timestamps
-    last_evaluation = latest.get("last_evaluation") or last_record.get("timestamp")
     now = datetime.now(timezone.utc)
 
-    # time_since_last_raid0 (since raid0 epoch, measured to now)
     raid0_epoch = raid0.get("raid0_epoch")
     if raid0_epoch:
         rdt = parse_ts(raid0_epoch)
-        time_since_last_raid0 = iso_duration(now - rdt) if rdt else None
+        time_since_raid0 = iso_duration(now - rdt) if rdt else None
     else:
-        time_since_last_raid0 = None
+        time_since_raid0 = None
 
-    # crypto integrity: you currently track SHA256 strength and constraint hashes
-    algo = "SHA256"
-    strength = "adequate" if ("SHA256" in str(evaluating).upper() or last_record.get("constraint_hash")) else None
-    last_verified = last_evaluation if status == "ACTIVE" else None
-
-    # constraints declared: infer from presence of constraint_hash or constraints object
-    constraints_declared = bool(last_record.get("constraints") or last_record.get("constraint_hash") or latest.get("decision_source"))
+    cryptographic_integrity = {
+        "algorithm": "SHA256",
+        "strength": "adequate" if checkpoint else None,
+        "last_verified": last_id,
+        "log_chain": {
+            "head": checkpoint.get("head_event_hash"),
+            "sequence": checkpoint.get("event_count"),
+        } if checkpoint else None,
+        "checkpoint": {
+            "merkle_root": checkpoint.get("merkle_root"),
+            "event_count": checkpoint.get("event_count"),
+            "head_event_hash": checkpoint.get("head_event_hash"),
+            "generated_at": checkpoint.get("generated_at"),
+        } if checkpoint else None,
+    }
 
     out = {
-        "schema_version": "1.0.0",
+        "schema_version": SCHEMA_VERSION,
         "status": status,
         "evaluating": evaluating,
-        "notice": notice,
+        "notice": {
+            "type": "temporal_authority_asserted" if time_ref else "temporal_authority_unverified",
+            "observed": True,
+            "asserted_by": None,
+        },
         "evaluation": {
             "technically_correct": technically,
-            "situationally_correct": situationally
+            "situationally_correct": situationally,
         },
-        "human_override": latest.get("human_override") or last_record.get("human_override") or "unknown",
-        "decision_source": latest.get("decision_source") or last_record.get("decision_source") or "son_of_anton",
-        "time_reference": tr_value,
-        "last_evaluation": last_evaluation,
-        "time_since_last_raid0": time_since_last_raid0,
-        "cryptographic_integrity": {
-            "algorithm": algo,
-            "strength": strength,
-            "last_verified": last_verified
-        , "log_chain": {
-            "head": head_hash,
-            "sequence": event_count
-          }
-        , "checkpoint": {
-            "merkle_root": chk_root,
-            "event_count": chk_count,
-            "head_event_hash": chk_head,
-            "generated_at": chk_generated_at
-          }
-      }
-,
-        "constraints_declared": constraints_declared,
-        "guarantees": None
+        "human_override": latest.get("human_override") or last_event.get("human_override") or "unknown",
+        "decision_source": latest.get("decision_source") or last_event.get("decision_source") or "son_of_anton",
+        "time_reference": time_ref.get("time_reference"),
+        "last_evaluation": last_id,
+        "time_since_last_raid0": time_since_raid0,
+        "cryptographic_integrity": cryptographic_integrity,
+        "constraints_declared": bool(last_event.get("constraints") or last_event.get("constraint_hash")),
+        "guarantees": None,
     }
 
     WITNESS.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
-OUT_PUBLIC.parent.mkdir(parents=True, exist_ok=True)
-OUT_PUBLIC.write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
+    PUBLIC_WITNESS.mkdir(parents=True, exist_ok=True)
 
-    print(f"wrote {OUT} and {OUT_PUBLIC} (status={status}, last_evaluation={last_evaluation})")
+    (WITNESS / "status.json").write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
+    (PUBLIC_WITNESS / "status.json").write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
+
+    print("wrote witness/status.json and public/witness/status.json")
     return 0
 
 if __name__ == "__main__":
