@@ -1,26 +1,26 @@
 {
   "schema_version": "1.0.0",
-  "status": "DEGRADED",
-  "evaluating": "global_phase_coherence",
+  "status": "ACTIVE",
+  "evaluating": "SHA256 strength",
   "notice": {
-    "type": "temporal_authority_unverified",
+    "type": "temporal_authority_asserted",
     "observed": true,
     "asserted_by": null
   },
   "evaluation": {
-    "technically_correct": null,
-    "situationally_correct": null
+    "technically_correct": true,
+    "situationally_correct": true
   },
-  "human_override": "unknown",
+  "human_override": "not_requested",
   "decision_source": "son_of_anton",
-  "time_reference": null,
-  "last_evaluation": null,
-  "time_since_last_raid0": null,
+  "time_reference": "global_phase_coherence",
+  "last_evaluation": "20260130T225747Z",
+  "time_since_last_raid0": "PT1H9M10S",
   "cryptographic_integrity": {
-    "algorithm": "sha256",
-    "strength": null,
-    "last_verified": null
+    "algorithm": "SHA256",
+    "strength": "adequate",
+    "last_verified": "20260130T225747Z"
   },
-  "constraints_declared": false,
+  "constraints_declared": true,
   "guarantees": null
 }
