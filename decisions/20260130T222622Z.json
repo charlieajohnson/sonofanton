@@ -17,5 +17,10 @@
   "constraint_absence": [],
   "degradation_state": "HEALTHY",
   "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
-  "event_hash": "1104eb1a7d5782ab69a7afab7d5fdbae0b544b3aa7971e9f309de0f390f51a72"
+  "event_hash": "a6af1b148f35588b07114a0e43638b58d98e7a745fea0bfa3150f729f51cb723",
+  "constraints_evaluated": [
+    "human_override",
+    "temporal_authority",
+    "safety_limits"
+  ]
 }

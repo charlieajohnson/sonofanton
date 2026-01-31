@@ -16,6 +16,11 @@
   "schema_version": "1.0.0",
   "constraint_absence": [],
   "degradation_state": "HEALTHY",
-  "prev_hash": "b662d6c15f53ae2de0195a0a5f31e1640aa511410e898d431bf5a8ef3d8d4054",
-  "event_hash": "1f6562be8aede646066438b1358fc3195a5149290f868f7b0fea62595332420b"
+  "prev_hash": "41536722411a7e2f4e2107a48fb3437837811e2cb13418afb07b633d04dd08bc",
+  "event_hash": "cb80df634b46ddf7b16570db489a3e22ecf7fd41a4976a93dd6d7a04009901a5",
+  "constraints_evaluated": [
+    "human_override",
+    "temporal_authority",
+    "safety_limits"
+  ]
 }

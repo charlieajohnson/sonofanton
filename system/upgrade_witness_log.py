@@ -97,6 +97,11 @@ def ensure_fields(event: Dict[str, Any]) -> Tuple[Dict[str, Any], bool]:
         event["schema_version"] = SCHEMA_VERSION
         changed = True
 
+    if "constraints_evaluated" not in event:
+        # v1 baseline: constraints we explicitly claim to check
+        event["constraints_evaluated"] = ["human_override", "temporal_authority", "safety_limits"]
+        changed = True
+
     if "constraint_absence" not in event:
         # v1 default: empty list means "no absences explicitly logged"
         event["constraint_absence"] = []
