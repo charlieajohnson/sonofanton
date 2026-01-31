@@ -22,6 +22,7 @@
   "human_override": "not_requested",
   "decision_source": "son_of_anton",
   "degradation_state": "HEALTHY",
-  "prev_hash": "3a1fc952906079f2aba0f3391d3da6f144d68dd59a9ecda2364e298ed1dc62d0",
-  "event_hash": "af93b64f357d374b889cccca7f6c436ca134778004bd42180f16b5e0cd3aef14"
+  "prev_hash": "ab33915a3a3596a37bf20f5e777a0203b56347746a17d4d63a361fb25e406f9f",
+  "event_hash": "6aa6c455e2844233dcf55ce2bd8d83431ae1923105b02e5ef6361a85d79d5d56",
+  "constraint_evaluation_complete": true
 }

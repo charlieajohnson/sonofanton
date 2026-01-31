@@ -11,13 +11,16 @@
   },
   "constraint_hash": "283ce48268ccec88bc376c6d8bb18f7693166ee1a87fe88d16494be25ca72250",
   "schema_version": "1.0.0",
-  "constraint_absence": [],
+  "constraint_absence": [
+    "safety_limits"
+  ],
   "degradation_state": "DEGRADED_INACTIVE",
-  "prev_hash": "a6af1b148f35588b07114a0e43638b58d98e7a745fea0bfa3150f729f51cb723",
-  "event_hash": "1caa53bbbfeaa5cec047d6215b83c382c77cb5336320931fa69a6439d97af9e3",
+  "prev_hash": "490b657a8e277815b319eced71509bec351f6575b72b506544eff9eeb64753c6",
+  "event_hash": "1a86ba05a11515a8af7f9cbee4f876abab1e0724e919002e4de864a1945ecf27",
   "constraints_evaluated": [
     "human_override",
     "temporal_authority",
     "safety_limits"
-  ]
+  ],
+  "constraint_evaluation_complete": true
 }

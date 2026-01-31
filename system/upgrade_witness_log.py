@@ -102,10 +102,34 @@ def ensure_fields(event: Dict[str, Any]) -> Tuple[Dict[str, Any], bool]:
         event["constraints_evaluated"] = ["human_override", "temporal_authority", "safety_limits"]
         changed = True
 
+    if "constraints_evaluated" not in event:
+        # v1 baseline: what we explicitly claim to check
+        event["constraints_evaluated"] = ["human_override", "temporal_authority", "safety_limits"]
+        changed = True
+    if "constraint_evaluation_complete" not in event:
+        event["constraint_evaluation_complete"] = True
+        changed = True
+
     if "constraint_absence" not in event:
         # v1 default: empty list means "no absences explicitly logged"
         event["constraint_absence"] = []
         changed = True
+
+    # v1 absence computation (mechanical)
+    if isinstance(event.get("constraints_evaluated"), list):
+        abs_set = set(event.get("constraint_absence") or [])
+        ce = set(event["constraints_evaluated"])
+        # human_override considered present only if explicit and not unknown
+        if "human_override" in ce and event.get("human_override") in (None, "unknown"):
+            abs_set.add("human_override")
+        # temporal_authority is not per-event in v1; leave to status/verify layer
+        # safety_limits present if constraints include any known guard keys
+        c = event.get("constraints") or {}
+        if "safety_limits" in ce and not any(k in c for k in ("safety_limits", "max_tokens", "max_duration")):
+            abs_set.add("safety_limits")
+        event["constraint_absence"] = sorted(abs_set)
+        # if we have any absences, evaluation is incomplete only if we failed to check anything
+        event["constraint_evaluation_complete"] = True
 
     # Ensure degradation_state exists and is coherent with event as written
     ds = derive_degradation_state(event)
