@@ -21,7 +21,7 @@ CHECKPOINT_JSON = CHECKPOINTS / "latest.json"
 SIG_TMP = CHECKPOINTS / ".latest.sig.ssh"
 
 ALLOWED = ROOT / "witness" / "keys" / "allowed_signers"
-PRINCIPAL = "sonofanton_checkpoint_ed25519"
+PRINCIPAL = "sonofanton_checkpoint_ed25519_v2"
 NAMESPACE = "sonofanton-checkpoint"
 
 SCHEMA_VERSION = "1.0.0"

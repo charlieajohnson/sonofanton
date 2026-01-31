@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "verified_at": "2026-01-31T01:11:28Z",
+  "verified_at": "2026-01-31T01:17:56Z",
   "verification_scope": "full_history",
   "chain": {
     "event_count": 8,
@@ -12,10 +12,10 @@
     "event_count": 8,
     "head_event_hash": "af93b64f357d374b889cccca7f6c436ca134778004bd42180f16b5e0cd3aef14",
     "generated_at": "20260131T010747Z",
-    "age_seconds": 221,
+    "age_seconds": 609,
     "considered_fresh": true,
     "freshness_threshold_seconds": 86400,
-    "signature_valid": false,
-    "signing_key_id": "sonofanton_checkpoint_ed25519"
+    "signature_valid": true,
+    "signing_key_id": "sonofanton_checkpoint_ed25519_v2"
   }
 }
