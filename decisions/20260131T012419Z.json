@@ -13,9 +13,14 @@
     "reviewed": false
   },
   "constraints_evaluated": [
+    "human_override",
+    "temporal_authority",
+    "safety_limits",
     "raid0_policy"
   ],
-  "constraint_absence": [],
+  "constraint_absence": [
+    "safety_limits"
+  ],
   "status": "ACTIVE",
   "evaluation": [
     "technically_correct"
@@ -24,6 +29,6 @@
   "decision_source": "son_of_anton",
   "constraint_evaluation_complete": true,
   "degradation_state": "HEALTHY",
-  "prev_hash": "6aa6c455e2844233dcf55ce2bd8d83431ae1923105b02e5ef6361a85d79d5d56",
-  "event_hash": "01c097fd08745e73e0a57a2ec6805493621e79dcf61fc4ff5d5f1b02807bfdf8"
+  "prev_hash": "59c281fb1c1ab1a0bb8b513d923f680cf335d758a93ef64779df8fd414cc4113",
+  "event_hash": "fd4e778b897266410af1a7cc338bab053be1cc566d0457243b2c2654bb364b1e"
 }

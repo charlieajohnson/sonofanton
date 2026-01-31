@@ -12,6 +12,9 @@
     "review_required_after": "PT30M"
   },
   "constraints_evaluated": [
+    "human_override",
+    "temporal_authority",
+    "safety_limits",
     "raid0_policy"
   ],
   "constraint_absence": [],
@@ -23,6 +26,6 @@
   "decision_source": "son_of_anton",
   "degradation_state": "HEALTHY",
   "prev_hash": "ab33915a3a3596a37bf20f5e777a0203b56347746a17d4d63a361fb25e406f9f",
-  "event_hash": "6aa6c455e2844233dcf55ce2bd8d83431ae1923105b02e5ef6361a85d79d5d56",
+  "event_hash": "59c281fb1c1ab1a0bb8b513d923f680cf335d758a93ef64779df8fd414cc4113",
   "constraint_evaluation_complete": true
 }
