@@ -27,6 +27,13 @@ NAMESPACE = "sonofanton-checkpoint"
 SCHEMA_VERSION = "1.0.0"
 TS_RE = re.compile(r"^\d{8}T\d{6}Z$")
 
+def parse_compact_ts(s: str):
+    try:
+        return datetime.strptime(s, "%Y%m%dT%H%M%SZ").replace(tzinfo=timezone.utc)
+    except Exception:
+        return None
+
+
 def read_json(p: Path) -> Optional[Dict[str, Any]]:
     try:
         return json.loads(p.read_text(encoding="utf-8"))
@@ -83,6 +90,14 @@ def verify_checkpoint_signature() -> bool:
 def main() -> int:
     checkpoint = read_json(CHECKPOINT_JSON) or {}
     sig_ok = verify_checkpoint_signature()
+    freshness_threshold_seconds = 86400
+    checkpoint_age_seconds = None
+    checkpoint_considered_fresh = None
+    _gat = checkpoint.get('generated_at')
+    _gdt = parse_compact_ts(_gat) if isinstance(_gat, str) else None
+    if _gdt:
+        checkpoint_age_seconds = int((datetime.now(timezone.utc) - _gdt).total_seconds())
+        checkpoint_considered_fresh = checkpoint_age_seconds <= freshness_threshold_seconds
 
     files = list_event_files()
     events = []
@@ -110,6 +125,9 @@ def main() -> int:
             "event_count": checkpoint.get("event_count"),
             "head_event_hash": checkpoint.get("head_event_hash"),
             "generated_at": checkpoint.get("generated_at"),
+            "age_seconds": checkpoint_age_seconds,
+            "considered_fresh": checkpoint_considered_fresh,
+            "freshness_threshold_seconds": freshness_threshold_seconds,
             "signature_valid": bool(sig_ok),
             "signing_key_id": PRINCIPAL,
         },

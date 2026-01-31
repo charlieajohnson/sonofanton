@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "verified_at": "2026-01-31T00:59:42Z",
+  "verified_at": "2026-01-31T01:07:08Z",
   "verification_scope": "full_history",
   "chain": {
     "event_count": 7,
@@ -12,6 +12,9 @@
     "event_count": 7,
     "head_event_hash": "30fb297e4a52b230c93cd351a7ffc2db1562b9b26d3900f3db46a5c2d3fb54a7",
     "generated_at": "20260131T003843Z",
+    "age_seconds": 1705,
+    "considered_fresh": true,
+    "freshness_threshold_seconds": 86400,
     "signature_valid": true,
     "signing_key_id": "sonofanton_checkpoint_ed25519"
   }
